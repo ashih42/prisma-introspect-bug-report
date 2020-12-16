@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../doge.db"
+}
+
+model User {
+  id                   String            @id
+  created_at           DateTime          @default(now())
+  updated_at           DateTime
+  email                String            @unique
+  my_project_members        ProjectMember[]
+  my_workspace_members  WorkspaceMember[]
+}
+
+model Workspace {
+  id              String            @id
+  created_at      DateTime          @default(now())
+  updated_at      DateTime
+  name            String
+  these_projects         Project[]
+  these_workspace_members  WorkspaceMember[]
+}
+
+model WorkspaceMember {
+  id            String    @id
+  created_at    DateTime  @default(now())
+  updated_at    DateTime
+  role          String
+  user_id       String
+  workspace_id  String
+  the_user      User      @relation(fields: [user_id], references: [id])
+  the_workspace Workspace @relation(fields: [workspace_id], references: [id])
+
+  @@unique([user_id, workspace_id], name: "sqlite_autoindex_WorkspaceMember_2")
+}
+
+model Project {
+  id            String          @id
+  created_at    DateTime        @default(now())
+  updated_at    DateTime
+  name          String
+  workspace_id  String
+  parent_workspace     Workspace       @relation(fields: [workspace_id], references: [id])
+  these_project_members ProjectMember[]
+}
+
+model ProjectMember {
+  id         String   @id
+  created_at DateTime @default(now())
+  updated_at DateTime
+  role       String
+  user_id    String
+  project_id String
+  the_project    Project  @relation(fields: [project_id], references: [id])
+  the_user       User     @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, project_id], name: "sqlite_autoindex_ProjectMember_2")
+}

@@ -1,0 +1,6 @@
+.vscode/
+node_modules/
+Docker/
+venv/
+*.db
+__pycache__

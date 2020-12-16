@@ -1,0 +1,23 @@
+{
+  "name": "prisma_bug_report",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "install-dependencies": "bash scripts/install_dependencies.sh",
+    "init-db": "bash scripts/init_db.sh"
+  },
+  "dependencies": {
+    "@prisma/cli": "^2.13.0",
+    "@prisma/client": "^2.13.0",
+    "@types/node": "^14.14.11",
+    "sqlite3": "^5.0.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.2"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "all"
+  }
+}
